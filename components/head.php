@@ -1,9 +1,8 @@
 <?php
-session_start()
-?>
-
-<?php
-$email = $_SESSION['email'];
+global $title;
+session_start();
+$email = $_SESSION["email"];
+$userType = $_SESSION["UserType"];
 ?>
 
 <!doctype html>
@@ -13,28 +12,40 @@ $email = $_SESSION['email'];
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?php echo $title; ?></title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title><?php echo $title; ?></title>
 </head>
 <body>
-<header class="navbar bg-primary d-flex flex-row justify-content-between text-white p-4">
-    <a href="/index.php" class="text-white pr-4 h5">Home</a>
-    <?php
-    if ($email) {
-        echo "<div>
-                $email
-                <a href='/logout.php' class='text-white h5 ml-4'>Log Out</a>
-            </div>";
-    } else {
-        echo "<div>
-                <a href='/login.php' class='text-white pr-4 h5'>Log In</a>
-                <a href='/register.php' class='text-white h5'>Register</a>
-            </div>";
+<header>
+    <div class="d-flex flex-row w-full bg-primary py-2 justify-content-between align-items-center">
+        <div class="d-flex flex-row justify-content-center ml-5">
+            <h3><a href="/" class="text-white text-decoration-none">Home</a></h3>
+            <?php
+                if($userType == 'Admin') {
+                    echo "<h3><a href='/admin.php' class='text-white text-decoration-none ml-4 h6'>Admin</a></h3>";
+                }
+            ?>
+        </div>
+        <?php
+        if (!$_SESSION['loggedIn']) {
+            echo "
+                    <div class='d-flex mr-5'>
+                        <h5><a href='/login.php' class='text-white text-decoration-none'>Log In</a></h5>
+                        <h5><a href='/register.php' class='text-white ml-4 text-decoration-none'>Register</a></h5>
+                    </div>
+                ";
+        } else {
+            echo "
+                    <div class='d-flex mr-5 align-items-center'>
+                        <h5 class='text-white'>$email</h5>
+                        <h5><a href='/logout.php' class='text-white ml-4 text-decoration-none'>Log Out</a></h5>
+                    </div>
+                ";
         }
-    ?>
+        ?>
+    </div>
 </header>
-<div class="w-50 p-3 mx-auto mt-5">
-    <h1 class="mb-5">
-        <?php echo $title; ?>
-    </h1>
+<div class="w-50 mx-auto">
+    <h1 class="mt-5"><?php echo $title; ?></h1>
+

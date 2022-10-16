@@ -1,7 +1,11 @@
 <?php
-    $connection = new mysqli("localhost", "root", "root", "adminapp");
 
-    if (!$connection) {
-       die('Db not connected');
-    }
+// Connect to db
+$connection = mysqli_connect("localhost", "root", "root", "adminapp");
+
+// Check if db is connected
+if (!$connection) {
+    $error[] = "Database not connected";
+}
+
 ?>

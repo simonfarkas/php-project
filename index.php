@@ -1,7 +1,8 @@
 <?php
-$title = "User page";
-include "components/head.php";
-session_start();
+    $title = "Home page";
+    include "components/head.php";
 ?>
-<?php include "components/footer.php" ?>
 
+<?php
+    include "components/footer.php";
+?>
